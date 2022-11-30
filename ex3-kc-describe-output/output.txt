@@ -1,0 +1,74 @@
+Name:                 kube-dns-cache-5v9ls
+Namespace:            kube-system
+Priority:             2000001000
+Priority Class Name:  system-node-critical
+Service Account:      kube-dns-cache
+Node:                 ip-10-31-54-255.us-west-2.compute.internal/10.31.54.255
+Start Time:           Wed, 26 Oct 2022 15:26:51 -0700
+Labels:               app=kube-dns-cache
+                      controller-revision-hash=5f9b4ccf7b
+                      k8s-app=kube-dns-cache
+                      owner=sre
+                      pod-template-generation=10
+Annotations:          kubernetes.io/psp: eks.privileged
+                      prometheus.io/scrape: true
+Status:               Running
+IP:                   10.31.54.255
+IPs:
+  IP:           10.31.54.255
+Controlled By:  DaemonSet/kube-dns-cache
+Containers:
+  coredns:
+    Container ID:  docker://344d7570fbb43b8a26700c82ed8df36d79e0e0364e9f9472e354ac9a3a9e6e2c
+    Image:         1234567890.dkr.ecr.us-west-2.amazonaws.com/coredns:master-91cc457
+    Image ID:      docker-pullable://1234567890.dkr.ecr.us-west-2.amazonaws.com/coredns@sha256:d02cc60bc80aeb1f644a8a6f7545906cc90a081468a9e95e43615e40511f97ef
+    Ports:         53/UDP, 53/TCP, 6053/TCP, 8053/TCP, 9053/TCP
+    Host Ports:    53/UDP, 53/TCP, 6053/TCP, 8053/TCP, 9053/TCP
+    Command:
+      kube-local-coredns
+    Args:
+      -conf=/etc/coredns/Corefile
+    State:          Running
+      Started:      Wed, 26 Oct 2022 15:27:18 -0700
+    Ready:          True
+    Restart Count:  0
+    Liveness:       http-get http://localhost:8053/health delay=60s timeout=5s period=10s #success=1 #failure=3
+    Environment:
+      NODE_IP:      (v1:status.hostIP)
+      AWS_REGION:  us-west-2
+    Mounts:
+      /etc/coredns from config-volume (rw)
+      /run/xtables.lock from xtables-lock (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-qphh7 (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  xtables-lock:
+    Type:          HostPath (bare host directory volume)
+    Path:          /run/xtables.lock
+    HostPathType:  FileOrCreate
+  config-volume:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      kube-dns-cache-config-v2
+    Optional:  false
+  kube-api-access-qphh7:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 CriticalAddonsOnly op=Exists
+                             node.kubernetes.io/disk-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/memory-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/network-unavailable:NoSchedule op=Exists
+                             node.kubernetes.io/not-ready:NoExecute op=Exists
+                             node.kubernetes.io/pid-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/unreachable:NoExecute op=Exists
+                             node.kubernetes.io/unschedulable:NoSchedule op=Exists
+Events:                      <none>
